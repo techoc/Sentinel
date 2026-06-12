@@ -1,9 +1,8 @@
-# Sentinel Spring Cloud Gateway Adapter
+# Sentinel Spring Cloud Gateway 适配器
 
-Sentinel provides integration module with Spring Cloud Gateway.
-The integration module is based on the Sentinel Reactor Adapter.
+Sentinel 提供了与 Spring Cloud Gateway 的集成模块，该模块基于 Sentinel Reactor Adapter 实现。
 
-Add the following dependency in `pom.xml` (if you are using Maven):
+在 `pom.xml` 中添加以下依赖（如果使用 Maven）：
 
 ```xml
 <dependency>
@@ -13,8 +12,7 @@ Add the following dependency in `pom.xml` (if you are using Maven):
 </dependency>
 ```
 
-Then you only need to inject the corresponding `SentinelGatewayFilter` and `SentinelGatewayBlockExceptionHandler` instance
-in Spring configuration. For example:
+然后只需在 Spring 配置中注入相应的 `SentinelGatewayFilter` 和 `SentinelGatewayBlockExceptionHandler` 实例。例如：
 
 ```java
 @Configuration
@@ -32,7 +30,7 @@ public class GatewayConfiguration {
     @Bean
     @Order(-1)
     public SentinelGatewayBlockExceptionHandler sentinelGatewayBlockExceptionHandler() {
-        // Register the block exception handler for Spring Cloud Gateway.
+      // 注册 Spring Cloud Gateway 的限流异常处理器
         return new SentinelGatewayBlockExceptionHandler(viewResolvers, serverCodecConfigurer);
     }
 
@@ -44,9 +42,10 @@ public class GatewayConfiguration {
 }
 ```
 
-The gateway adapter will regard all `routeId` (defined in Spring properties) and all customized API definitions
-(defined in `GatewayApiDefinitionManager` of `sentinel-api-gateway-adapter-common` module) as resources.
+网关适配器会将所有 `routeId`（在 Spring 属性中定义）和所有自定义的 API 定义（在 `sentinel-api-gateway-adapter-common` 模块的
+`GatewayApiDefinitionManager` 中定义）视为资源。
 
-You can register various customized callback in `GatewayCallbackManager`:
+您可以在 `GatewayCallbackManager` 中注册各种自定义回调：
 
-- `setBlockHandler`: register a customized `BlockRequestHandler` to handle the blocked request. The default implementation is `DefaultBlockRequestHandler`, which returns default message like `Blocked by Sentinel: FlowException`.
+- `setBlockHandler`: 注册自定义的 `BlockRequestHandler` 来处理被限流的请求。默认实现是 `DefaultBlockRequestHandler`，返回类似
+  `Blocked by Sentinel: FlowException` 的默认消息。
