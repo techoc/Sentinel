@@ -30,26 +30,26 @@ import java.util.List;
 
 /**
  * Sentinel Gateway 限流异常处理器 - 处理 Sentinel 拦截的请求异常
- *
+ * <p>
  * 该类实现了 Spring WebFlux 的 WebExceptionHandler 接口，
  * 作为 Spring Cloud Gateway 的全局异常处理器，专门处理 Sentinel 产生的流控异常。
- *
+ * <p>
  * 工作流程：
  * 1. 当 SentinelGatewayFilter 检测到请求违反流控规则时，会抛出 BlockException
  * 2. Spring Cloud Gateway 的异常处理机制捕获该异常
  * 3. 该处理器判断异常是否为 BlockException
  * 4. 如果是，调用 BlockRequestHandler 生成限流响应
  * 5. 如果不是，则重新抛出异常，让其他处理器处理
- *
+ * <p>
  * 响应处理：
  * - 使用 GatewayCallbackManager.getBlockHandler() 获取注册的 BlockRequestHandler
  * - 调用 handleRequest 方法生成 ServerResponse
  * - 将响应写入 ServerWebExchange
- *
+ * <p>
  * 注意：
  * 该处理器只处理 Sentinel 的 BlockException，其他异常会被重新抛出。
  * 这确保了 Sentinel 的流控逻辑与其他异常处理逻辑的正确分离。
- * 
+ *
  * @author Eric Zhao
  * @since 1.6.0
  */
@@ -119,15 +119,15 @@ public class SentinelGatewayBlockExceptionHandler implements WebExceptionHandler
         }
         // 处理被限流的请求
         return handleBlockedRequest(exchange, ex)
-            .flatMap(response -> writeResponse(response, exchange));
+                .flatMap(response -> writeResponse(response, exchange));
     }
 
     /**
      * 处理被限流的请求
-     *
+     * <p>
      * 调用注册的 BlockRequestHandler 生成限流响应。
      *
-     * @param exchange ServerWebExchange 对象
+     * @param exchange  ServerWebExchange 对象
      * @param throwable BlockException 异常
      * @return ServerResponse 响应对象
      */

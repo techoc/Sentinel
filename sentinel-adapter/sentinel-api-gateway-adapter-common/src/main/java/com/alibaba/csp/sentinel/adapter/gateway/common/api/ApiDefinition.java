@@ -19,18 +19,38 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * A group of HTTP API patterns.
+ * API 定义类 - 表示一组 HTTP API 模式的分组定义
  *
+ * 该类用于定义自定义的 API 资源，允许将多个路径模式分组到一个逻辑名称下。
+ *
+ * 核心属性：
+ * - apiName: API 名称，作为 Sentinel 资源名使用
+ * - predicateItems: 匹配项集合，定义该 API 包含哪些路径模式
+ *
+ * 使用场景：
+ * - 当需要按业务功能分组进行流控时使用
+ * - 例如：将 /api/user/* 和 /api/order/* 分组到 "user_api" 下
+ * 
  * @author Eric Zhao
  * @since 1.6.0
  */
 public class ApiDefinition {
 
+    /**
+     * API 名称，作为 Sentinel 资源名
+     */
     private String apiName;
+    /** 匹配项集合，定义该 API 包含的路径模式 */
     private Set<ApiPredicateItem> predicateItems;
 
-    public ApiDefinition() {}
+    /** 默认构造函数 */
+    public ApiDefinition() {
+    }
 
+    /**
+     * 使用 API 名称创建实例
+     * @param apiName API 名称
+     */
     public ApiDefinition(String apiName) {
         this.apiName = apiName;
     }

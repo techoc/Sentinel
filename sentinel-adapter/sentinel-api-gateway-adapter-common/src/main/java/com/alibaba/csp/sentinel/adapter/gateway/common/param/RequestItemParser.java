@@ -16,6 +16,19 @@
 package com.alibaba.csp.sentinel.adapter.gateway.common.param;
 
 /**
+ * 请求项解析器接口 - 定义从请求中提取各项信息的契约
+ *
+ * 该接口用于从请求对象中提取各种信息，供 Sentinel 的参数流控使用。
+ * 不同的网关适配器（如 Spring Cloud Gateway、Zuul）需要提供各自的实现。
+ *
+ * 支持提取的信息：
+ * - 路径（Path）
+ * - 远程地址（Remote Address）
+ * - 请求头（Header）
+ * - URL 参数（URL Param）
+ * - Cookie 值
+ *
+ * @param <T> 请求类型
  * @author Eric Zhao
  * @since 1.6.0
  */

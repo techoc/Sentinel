@@ -15,13 +15,22 @@
  */
 package com.alibaba.csp.sentinel.adapter.gateway.common.param;
 
+import com.alibaba.csp.sentinel.log.RecordLog;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
-import com.alibaba.csp.sentinel.log.RecordLog;
-
 /**
+ * Gateway 正则表达式缓存 - 缓存编译后的正则表达式以提高性能
+ *
+ * 该类提供正则表达式的缓存管理，避免重复编译正则表达式带来的性能开销。
+ *
+ * 核心功能：
+ * - 存储已编译的 Pattern 对象
+ * - 提供获取、添加和清除缓存的方法
+ * - 使用 ConcurrentHashMap 保证线程安全
+ * 
  * @author Eric Zhao
  * @since 1.6.2
  */

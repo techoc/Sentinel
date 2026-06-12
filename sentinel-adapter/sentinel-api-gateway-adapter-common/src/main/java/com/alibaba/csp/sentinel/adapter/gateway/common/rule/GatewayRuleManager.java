@@ -33,6 +33,20 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * Gateway 规则管理器 - 管理网关流控规则的加载和转换
+ *
+ * 该类负责：
+ * 1. 维护网关流控规则的内存存储（GATEWAY_RULE_MAP）
+ * 2. 将 GatewayFlowRule 转换为内部的 ParamFlowRule
+ * 3. 管理规则的动态更新（通过 PropertyListener）
+ * 4. 管理正则表达式缓存
+ *
+ * 工作流程：
+ * 1. 加载规则时，验证规则有效性
+ * 2. 将带参数的规则转换为 ParamFlowRule
+ * 3. 将不带参数的规则也转换为 ParamFlowRule（使用默认参数）
+ * 4. 更新参数指标存储
+ * 
  * @author Eric Zhao
  * @since 1.6.0
  */

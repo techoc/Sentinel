@@ -23,10 +23,17 @@ import com.alibaba.csp.sentinel.command.annotation.CommandMapping;
 import com.alibaba.fastjson.JSON;
 
 /**
+ * 获取 API 定义命令处理器 - 用于获取所有自定义 API 定义
+ *
+ * 该类实现了 Sentinel 的 CommandHandler 接口，提供获取 API 定义的 API。
+ *
+ * 命令名称：gateway/getApiDefinitions
+ * 功能：返回所有已注册的 ApiDefinition 的 JSON 字符串
+ * 
  * @author Eric Zhao
  * @since 1.6.0
  */
-@CommandMapping(name = "gateway/getApiDefinitions", desc = "Fetch all customized gateway API groups")
+@CommandMapping(name = "gateway/getApiDefinitions", desc = "获取所有自定义 API 定义")
 public class GetGatewayApiDefinitionGroupCommandHandler implements CommandHandler<String> {
 
     @Override

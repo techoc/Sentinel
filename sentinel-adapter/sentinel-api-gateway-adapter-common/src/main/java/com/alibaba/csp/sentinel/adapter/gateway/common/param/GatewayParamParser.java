@@ -15,10 +15,6 @@
  */
 package com.alibaba.csp.sentinel.adapter.gateway.common.param;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Pattern;
-
 import com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants;
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule;
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayParamFlowItem;
@@ -27,7 +23,23 @@ import com.alibaba.csp.sentinel.util.AssertUtil;
 import com.alibaba.csp.sentinel.util.StringUtil;
 import com.alibaba.csp.sentinel.util.function.Predicate;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Pattern;
+
 /**
+ * Gateway 参数解析器 - 从请求中提取流控参数
+ *
+ * 该类负责根据 GatewayFlowRule 中定义的参数配置，从请求中提取对应的参数值。
+ *
+ * 支持的参数解析策略：
+ * - PARAM_PARSE_STRATEGY_CLIENT_IP: 客户端 IP
+ * - PARAM_PARSE_STRATEGY_HOST: 请求头中的 Host
+ * - PARAM_PARSE_STRATEGY_HEADER: 指定的请求头
+ * - PARAM_PARSE_STRATEGY_URL_PARAM: URL 查询参数
+ * - PARAM_PARSE_STRATEGY_COOKIE: Cookie 值
+ *
+ * @param <T> 请求类型
  * @author Eric Zhao
  * @since 1.6.0
  */

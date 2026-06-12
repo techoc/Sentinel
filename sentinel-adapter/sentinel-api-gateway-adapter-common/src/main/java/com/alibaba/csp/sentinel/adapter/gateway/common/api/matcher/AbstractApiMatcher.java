@@ -15,15 +15,26 @@
  */
 package com.alibaba.csp.sentinel.adapter.gateway.common.api.matcher;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition;
 import com.alibaba.csp.sentinel.log.RecordLog;
 import com.alibaba.csp.sentinel.util.AssertUtil;
 import com.alibaba.csp.sentinel.util.function.Predicate;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
+ * API 匹配器抽象基类 - 提供 API 匹配的通用逻辑
+ *
+ * 该类是所有 API 匹配器的基类，实现了 Predicate<T> 接口。
+ * 子类需要实现 initializeMatchers() 方法来初始化具体的匹配器。
+ *
+ * 核心属性：
+ * - apiName: API 名称
+ * - apiDefinition: API 定义对象
+ * - matchers: 匹配器集合（使用 Sentinel 自定义的 Predicate，兼容 JDK 1.7）
+ *
+ * @param <T> 请求类型（如 ServerWebExchange）
  * @author Eric Zhao
  * @since 1.6.0
  */

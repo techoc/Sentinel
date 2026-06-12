@@ -35,10 +35,23 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 更新 API 定义命令处理器 - 用于动态更新自定义 API 定义
+ *
+ * 该类实现了 Sentinel 的 CommandHandler 接口，提供更新 API 定义的 API。
+ *
+ * 命令名称：gateway/updateApiDefinitions
+ * 功能：接收 JSON 格式的 API 定义数据，解析并加载到 GatewayApiDefinitionManager
+ *
+ * 处理流程：
+ * 1. 获取请求参数 data（URL 解码）
+ * 2. 解析 JSON 为 Set<ApiDefinition>（将 predicateItems 解析为 ApiPathPredicateItem）
+ * 3. 调用 GatewayApiDefinitionManager.loadApiDefinitions() 加载定义
+ * 4. 如果配置了可写数据源，持久化定义
+ * 
  * @author Eric Zhao
  * @since 1.6.0
  */
-@CommandMapping(name = "gateway/updateApiDefinitions", desc = "")
+@CommandMapping(name = "gateway/updateApiDefinitions", desc = "更新自定义 API 定义")
 public class UpdateGatewayApiDefinitionGroupCommandHandler implements CommandHandler<String> {
 
     private static WritableDataSource<Set<ApiDefinition>> apiDefinitionWds = null;

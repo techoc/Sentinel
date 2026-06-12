@@ -23,10 +23,17 @@ import com.alibaba.csp.sentinel.command.annotation.CommandMapping;
 import com.alibaba.fastjson.JSON;
 
 /**
+ * 获取网关规则命令处理器 - 用于获取所有网关流控规则
+ *
+ * 该类实现了 Sentinel 的 CommandHandler 接口，提供获取网关规则的 API。
+ *
+ * 命令名称：gateway/getRules
+ * 功能：返回所有已加载的 GatewayFlowRule 规则的 JSON 字符串
+ * 
  * @author Eric Zhao
  * @since 1.6.0
  */
-@CommandMapping(name = "gateway/getRules", desc = "Fetch all gateway rules")
+@CommandMapping(name = "gateway/getRules", desc = "获取所有网关流控规则")
 public class GetGatewayRuleCommandHandler implements CommandHandler<String> {
 
     @Override

@@ -28,24 +28,24 @@ import static org.springframework.web.reactive.function.BodyInserters.fromObject
 
 /**
  * 默认的限流请求处理器 - BlockRequestHandler 的默认实现
- *
+ * <p>
  * 该类是 BlockRequestHandler 接口的默认实现，提供了被 Sentinel 拦截后的标准响应逻辑。
- *
+ * <p>
  * 响应逻辑：
  * 1. 根据客户端 Accept 请求头判断客户端类型
  * 2. 如果客户端接受 HTML（如浏览器访问），返回纯文本格式的错误信息
  * 3. 否则（默认情况），返回 JSON 格式的错误信息
- *
+ * <p>
  * 错误信息格式：
  * - 默认前缀："Blocked by Sentinel: "
  * - 异常类型名：例如 "FlowException"、"DegradeException" 等
- *
+ * <p>
  * 响应示例：
  * - HTML: "Blocked by Sentinel: FlowException" (HTTP 429)
  * - JSON: {"code":429,"message":"Blocked by Sentinel: FlowException"} (HTTP 429)
- *
+ * <p>
  * 该处理器兼容 Spring WebFlux 和 Spring Cloud Gateway 环境。
- * 
+ *
  * @author Eric Zhao
  */
 public class DefaultBlockRequestHandler implements BlockRequestHandler {
@@ -70,8 +70,8 @@ public class DefaultBlockRequestHandler implements BlockRequestHandler {
         }
         // 默认返回 JSON 格式响应
         return ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .body(fromObject(buildErrorResult(ex)));
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .body(fromObject(buildErrorResult(ex)));
     }
 
     /**
@@ -82,8 +82,8 @@ public class DefaultBlockRequestHandler implements BlockRequestHandler {
      */
     private Mono<ServerResponse> htmlErrorResponse(Throwable ex) {
         return ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
-            .contentType(MediaType.TEXT_PLAIN)
-            .syncBody(DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName());
+                .contentType(MediaType.TEXT_PLAIN)
+                .syncBody(DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName());
     }
 
     /**
@@ -94,12 +94,12 @@ public class DefaultBlockRequestHandler implements BlockRequestHandler {
      */
     private ErrorResult buildErrorResult(Throwable ex) {
         return new ErrorResult(HttpStatus.TOO_MANY_REQUESTS.value(),
-            DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName());
+                DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName());
     }
 
     /**
      * 判断客户端是否接受 HTML 响应
-     *
+     * <p>
      * 参考 Spring Boot 的 DefaultErrorWebExceptionHandler 实现，
      * 检查 Accept 请求头中是否包含 text/html。
      *
@@ -112,7 +112,7 @@ public class DefaultBlockRequestHandler implements BlockRequestHandler {
             acceptedMediaTypes.remove(MediaType.ALL);
             MediaType.sortBySpecificityAndQuality(acceptedMediaTypes);
             return acceptedMediaTypes.stream()
-                .anyMatch(MediaType.TEXT_HTML::isCompatibleWith);
+                    .anyMatch(MediaType.TEXT_HTML::isCompatibleWith);
         } catch (InvalidMediaTypeException ex) {
             return false;
         }

@@ -21,6 +21,19 @@ import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowItem;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule;
 
 /**
+ * Gateway 规则转换器 - 将 GatewayFlowRule 转换为内部规则格式
+ *
+ * 该类负责将网关层的流控规则转换为 Sentinel 内部使用的规则格式：
+ * - GatewayFlowRule → FlowRule
+ * - GatewayFlowRule → ParamFlowRule（参数流控）
+ *
+ * 核心方法：
+ * - toFlowRule(): 转换为普通流控规则
+ * - applyToParamRule(): 转换为参数流控规则
+ * - applyNonParamToParamRule(): 将无参数规则转换为参数流控规则
+ * - generateNonMatchPassParamItem(): 生成不匹配时通过的参数项
+ * - generateNonMatchBlockParamItem(): 生成不匹配时阻塞的参数项
+ * 
  * @author Eric Zhao
  * @since 1.6.0
  */

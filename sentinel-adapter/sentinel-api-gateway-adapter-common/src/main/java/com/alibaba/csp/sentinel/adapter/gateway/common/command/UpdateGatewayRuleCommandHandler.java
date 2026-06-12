@@ -31,10 +31,23 @@ import java.net.URLDecoder;
 import java.util.Set;
 
 /**
+ * 更新网关规则命令处理器 - 用于动态更新网关流控规则
+ *
+ * 该类实现了 Sentinel 的 CommandHandler 接口，提供更新网关规则的 API。
+ *
+ * 命令名称：gateway/updateRules
+ * 功能：接收 JSON 格式的规则数据，解析并加载到 GatewayRuleManager
+ *
+ * 处理流程：
+ * 1. 获取请求参数 data（URL 解码）
+ * 2. 解析 JSON 为 Set<GatewayFlowRule>
+ * 3. 调用 GatewayRuleManager.loadRules() 加载规则
+ * 4. 如果配置了可写数据源，持久化规则
+ * 
  * @author Eric Zhao
  * @since 1.6.0
  */
-@CommandMapping(name = "gateway/updateRules", desc = "Update gateway rules")
+@CommandMapping(name = "gateway/updateRules", desc = "更新网关流控规则")
 public class UpdateGatewayRuleCommandHandler implements CommandHandler<String> {
     private static WritableDataSource<Set<GatewayFlowRule>> gatewayFlowWds = null;
 

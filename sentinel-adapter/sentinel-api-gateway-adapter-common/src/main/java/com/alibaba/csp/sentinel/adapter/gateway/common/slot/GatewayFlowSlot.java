@@ -15,8 +15,6 @@
  */
 package com.alibaba.csp.sentinel.adapter.gateway.common.slot;
 
-import java.util.List;
-
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayRuleManager;
 import com.alibaba.csp.sentinel.context.Context;
 import com.alibaba.csp.sentinel.node.DefaultNode;
@@ -29,7 +27,22 @@ import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.param.ParameterMetricStorage;
 import com.alibaba.csp.sentinel.spi.Spi;
 
+import java.util.List;
+
 /**
+ * Gateway 流控 Slot - 在 Sentinel 调用链中执行网关层的参数流控检查
+ *
+ * 该类是 Sentinel Slot Chain 的一部分，负责在网关层进行参数级流控检查。
+ *
+ * 工作流程：
+ * 1. 从 GatewayRuleManager 获取转换后的参数流控规则
+ * 2. 初始化参数指标
+ * 3. 使用 ParamFlowChecker 进行流控检查
+ * 4. 如果检查不通过，抛出 ParamFlowException
+ *
+ * SPI 配置：
+ * - 使用 @Spi(order = -4000) 注解，确保在其他 Slot 之前执行
+ * 
  * @author Eric Zhao
  * @since 1.6.1
  */

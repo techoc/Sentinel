@@ -15,24 +15,31 @@
  */
 package com.alibaba.csp.sentinel.adapter.gateway.common.api;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.alibaba.csp.sentinel.log.RecordLog;
 import com.alibaba.csp.sentinel.property.DynamicSentinelProperty;
 import com.alibaba.csp.sentinel.property.PropertyListener;
 import com.alibaba.csp.sentinel.property.SentinelProperty;
-import com.alibaba.csp.sentinel.util.AssertUtil;
 import com.alibaba.csp.sentinel.spi.SpiLoader;
+import com.alibaba.csp.sentinel.util.AssertUtil;
 import com.alibaba.csp.sentinel.util.StringUtil;
 
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
- * Manager for gateway API definitions.
+ * Gateway API 定义管理器 - 管理自定义 API 定义的注册和变更
  *
+ * 该类负责：
+ * 1. 维护 API 定义的内存存储（API_MAP）
+ * 2. 支持动态更新 API 定义（通过 PropertyListener）
+ * 3. 管理 API 定义变更观察者（通过 SPI 加载）
+ * 4. 当 API 定义变更时通知下游观察者
+ *
+ * 工作流程：
+ * 1. 初始化时通过 SPI 加载所有 ApiDefinitionChangeObserver 实现
+ * 2. 通过 loadApiDefinitions() 方法更新 API 定义
+ * 3. 属性变化时触发配置更新，通知所有观察者
+ * 
  * @author Eric Zhao
  * @since 1.6.0
  */

@@ -18,6 +18,17 @@ package com.alibaba.csp.sentinel.adapter.gateway.common.rule;
 import com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants;
 
 /**
+ * Gateway 参数流控项 - 定义参数级别的流控配置
+ *
+ * 该类用于配置网关流控规则中的参数级流控，支持根据请求参数进行精细化流控。
+ *
+ * 核心属性：
+ * - index: 参数索引（在参数数组中的位置）
+ * - parseStrategy: 参数解析策略（IP、Host、Header、URL参数、Cookie）
+ * - fieldName: 字段名称（用于 Header、URL参数、Cookie 策略）
+ * - pattern: 匹配模式（可选，用于过滤参数值）
+ * - matchStrategy: 参数匹配策略（精确、前缀、正则、包含）
+ * 
  * @author Eric Zhao
  * @since 1.6.0
  */

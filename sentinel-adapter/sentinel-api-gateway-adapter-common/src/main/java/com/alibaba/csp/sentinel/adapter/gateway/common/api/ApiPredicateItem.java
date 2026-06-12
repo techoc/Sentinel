@@ -15,19 +15,25 @@
  */
 package com.alibaba.csp.sentinel.adapter.gateway.common.api;
 
-import com.alibaba.csp.sentinel.util.AssertUtil;
-
 /**
+ * API 匹配项接口 - 定义 API 匹配项的基本契约
+ *
+ * 该接口是所有匹配项类型的基接口，目前主要实现类为 ApiPathPredicateItem。
+ *
+ * 设计意图：
+ * - 提供统一的匹配项抽象，便于扩展其他类型的匹配项
+ * - 当前主要支持路径匹配，未来可扩展其他类型（如请求头匹配、参数匹配等）
+ * 
  * @author Eric Zhao
  * @since 1.6.0
  */
 public interface ApiPredicateItem {
 
     /**
-     * Combine two {@link ApiPredicateItem}.
+     * 将两个匹配项组合（已注释，预留功能）
      *
-     * @param item another predicate item
-     * @return combined predicate group item
+     * @param item 另一个匹配项
+     * @return 组合后的匹配项组
      */
     /*default ApiPredicateItem and(ApiPredicateItem item) {
         AssertUtil.notNull(item, "item cannot be null");

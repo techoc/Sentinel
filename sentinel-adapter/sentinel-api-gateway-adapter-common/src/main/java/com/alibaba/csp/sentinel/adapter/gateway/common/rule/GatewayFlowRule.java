@@ -15,12 +15,27 @@
  */
 package com.alibaba.csp.sentinel.adapter.gateway.common.rule;
 
-import java.util.Objects;
-
 import com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 
+import java.util.Objects;
+
 /**
+ * Gateway 流控规则类 - 定义网关层的流控规则
+ *
+ * 该类是 Sentinel Gateway 适配器的核心规则类，用于配置网关层的流控策略。
+ *
+ * 核心属性：
+ * - resource: 资源名称（路由ID或自定义API名称）
+ * - resourceMode: 资源模式（路由ID模式或自定义API名称模式）
+ * - grade: 阈值类型（QPS或线程数）
+ * - count: 阈值
+ * - intervalSec: 时间窗口（秒）
+ * - controlBehavior: 流控行为（直接拒绝、Warm Up、匀速排队等）
+ * - burst: 突增流量允许的额外请求数
+ * - maxQueueingTimeoutMs: 匀速排队模式下的最大等待时间
+ * - paramItem: 参数流控配置（可选）
+ * 
  * @author Eric Zhao
  * @since 1.6.0
  */

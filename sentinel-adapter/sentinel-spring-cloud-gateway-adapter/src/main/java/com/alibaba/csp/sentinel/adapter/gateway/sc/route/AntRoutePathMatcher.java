@@ -24,24 +24,24 @@ import org.springframework.web.server.ServerWebExchange;
 
 /**
  * Ant 风格路由路径匹配器 - 使用 Ant 风格的路径模式进行匹配
- *
+ * <p>
  * 该类实现了 Predicate<ServerWebExchange> 接口，
  * 使用 Spring 的 AntPathMatcher 进行路径模式匹配。
- *
+ * <p>
  * Ant 风格路径模式示例：
  * - /api/** - 匹配 /api 下的所有路径（包括子目录）
  * - /api/* - 匹配 /api 下的一个路径段（不包括子目录）
  * - /api/user?name=* - 匹配参数值
  * - /api/user?.html - 匹配单个字符
- *
+ * <p>
  * 特点：
  * - 支持 ** 通配符匹配多个目录
  * - 支持 * 通配符匹配一个路径段
  * - 支持 ? 通配符匹配单个字符
- *
+ * <p>
  * 使用场景：
  * 当 Sentinel API 定义使用前缀匹配策略时，会创建该类的实例进行路径匹配。
- * 
+ *
  * @author Eric Zhao
  * @since 1.6.0
  */
